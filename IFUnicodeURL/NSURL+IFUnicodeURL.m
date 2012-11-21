@@ -63,7 +63,7 @@ static NSString *ConvertUnicodeDomainString(NSString *hostname, BOOL toAscii)
 	return hostname;
 }
 
-static NSString *ConvertUnicodeURLString(NSString *str, BOOL toAscii)
+static NSString *ConvertUnicodeURLString(NSString *str)
 {
 	NSMutableArray *urlParts = [[NSMutableArray new] autorelease];
 	NSString *hostname = nil;
@@ -90,7 +90,7 @@ static NSString *ConvertUnicodeURLString(NSString *str, BOOL toAscii)
 	[urlParts addObject:[parts objectAtIndex:1]];
 	
 	// Now that we have isolated just the hostname, do the magic decoding...
-	hostname = ConvertUnicodeDomainString(hostname, toAscii);
+	hostname = ConvertUnicodeDomainString(hostname, YES);
 	
 	// This will try to clean up the stuff after the hostname in the URL by making sure it's all encoded properly.
 	// NSURL doesn't normally do anything like this, but I found it useful for my purposes to put it in here.
@@ -118,12 +118,51 @@ static NSString *ConvertUnicodeURLString(NSString *str, BOOL toAscii)
 
 - (id)initWithUnicodeString:(NSString *)str
 {
-	return [self initWithString:ConvertUnicodeURLString(str, YES)];
+	return [self initWithString:ConvertUnicodeURLString(str)];
 }
 
 - (NSString *)unicodeAbsoluteString
 {
-	return ConvertUnicodeURLString([self absoluteString], NO);
+    // Make sure we're working with an absolute URL
+    CFURLRef absoluteURL = CFURLCopyAbsoluteURL((CFURLRef)self);
+    
+    // Can bail out early if there's no hostname to decode
+    CFRange hostRange = CFURLGetByteRangeForComponent(absoluteURL, kCFURLComponentHost, NULL);
+    if (hostRange.location == kCFNotFound)
+    {
+        CFRelease(absoluteURL);
+        return [self absoluteString];
+    }
+    
+    // Grab the raw URL data
+    CFIndex length = CFURLGetBytes(absoluteURL, NULL, 0);
+    NSMutableData *buffer = [[NSMutableData alloc] initWithLength:length];
+    CFURLGetBytes(absoluteURL, [buffer mutableBytes], length);
+    CFRelease(absoluteURL);
+    
+    // Grab the host
+    NSString *host = [[NSString alloc] initWithBytes:([buffer bytes] + hostRange.location)
+                                              length:hostRange.length
+                                            encoding:NSUTF8StringEncoding];
+    
+    // Decode it
+    NSString *unicodeHost = ConvertUnicodeDomainString(host, NO);
+    
+    // Swap in the decoded data
+    if (![unicodeHost isEqualToString:host])
+    {
+        NSData *unicodeHostData = [unicodeHost dataUsingEncoding:NSUTF8StringEncoding];
+        
+        [buffer replaceBytesInRange:NSMakeRange(hostRange.location, hostRange.length)
+                          withBytes:[unicodeHostData bytes]
+                             length:[unicodeHostData length]];
+    }
+    [host release];
+    
+    // Bundle the result up as a string to finish
+    NSString *result = [[NSString alloc] initWithBytes:[buffer bytes] length:[buffer length] encoding:NSUTF8StringEncoding];
+    [buffer release];
+    return [result autorelease];
 }
 
 - (NSString *)unicodeHost
