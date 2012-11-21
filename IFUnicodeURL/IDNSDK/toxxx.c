@@ -633,6 +633,14 @@ int Xcode_DomainToUnicode16( const UTF16CHAR *  puzInputString,
         memcpy( &suzDomain[dindex], suzOutLabel, iOutputSize*2 );
         dindex = dindex + iOutputSize;
       }
+      else
+      {
+          // Something was invalid, so fallback to the original encoded form
+          if ( dindex + lindex > MAX_DOMAIN_SIZE_16 ) return XCODE_BUFFER_OVERFLOW_ERROR;
+          memcpy( &suzDomain[dindex], suzInLabel, lindex*2 );
+          dindex = dindex + lindex;
+      }
+      
       lindex = 0;
       if ( delimiterPresent == 1 )
       {
