@@ -112,6 +112,7 @@ static NSString *ConvertUnicodeURLString(NSString *str, BOOL toAscii)
 @implementation NSURL (IFUnicodeURL)
 + (NSURL *)URLWithUnicodeString:(NSString *)str
 {
+    if (!str) return nil;   // mimic +URLWithString:'s present behaviour
 	return [[[self alloc] initWithUnicodeString:str] autorelease];
 }
 
