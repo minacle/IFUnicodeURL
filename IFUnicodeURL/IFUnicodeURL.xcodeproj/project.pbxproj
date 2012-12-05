@@ -133,7 +133,7 @@
 		EE83866C13897613005E0FFD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Jungle Candy Software";
 			};
 			buildConfigurationList = EE83866F13897613005E0FFD /* Build configuration list for PBXProject "IFUnicodeURL" */;

@@ -45,6 +45,11 @@
     [self testNormalisedString:@"http://www.xn--exmple-cub.com/" equalsUnicodeString:@"http://www.xn--exmple-cub.com/"];
 }
 
+- (void)testNil
+{
+    STAssertNil([NSURL URLWithUnicodeString:nil], nil);
+    STAssertThrows([[[NSURL alloc] initWithUnicodeString:nil] autorelease], nil);
+}
 
 
 @end
