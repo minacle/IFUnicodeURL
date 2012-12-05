@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		22407D2E166F6D9500E1EAD4 /* NSURL+IFUnicodeURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 22407D2D166F6D9500E1EAD4 /* NSURL+IFUnicodeURL.m */; };
 		22407D32166F6DD400E1EAD4 /* TestIFUnicodeURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 22407D31166F6DD400E1EAD4 /* TestIFUnicodeURL.m */; };
-		22407D34166F6FB300E1EAD4 /* UnitTests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22407D33166F6FB300E1EAD4 /* UnitTests.plist */; };
 		22407D37166F6FBB00E1EAD4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22407D35166F6FBB00E1EAD4 /* InfoPlist.strings */; };
 		22407D41166F721200E1EAD4 /* nameprep.c in Sources */ = {isa = PBXBuildFile; fileRef = 22407D39166F721100E1EAD4 /* nameprep.c */; };
 		22407D42166F721200E1EAD4 /* puny.c in Sources */ = {isa = PBXBuildFile; fileRef = 22407D3B166F721200E1EAD4 /* puny.c */; };
@@ -159,7 +158,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22407D34166F6FB300E1EAD4 /* UnitTests.plist in Resources */,
 				22407D37166F6FBB00E1EAD4 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
