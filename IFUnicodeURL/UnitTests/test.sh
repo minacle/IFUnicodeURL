@@ -3,7 +3,6 @@
 # This script builds and runs the unit tests and produces output in a format that is compatible with Jenkins.
 
 base=`dirname $0`
-echo "$base"
 pushd "$base/../.." > /dev/null
 build="$PWD/test-build"
 ocunit2junit="$base/OCUnit2JUnit/bin/ocunit2junit"
@@ -19,5 +18,13 @@ rm -rf "$build"
 mkdir -p "$build"
 
 xcodebuild -workspace "IFUnicodeURL.xcworkspace" -scheme "UnitTests" -sdk "macosx" -config "Debug" test OBJROOT="$obj" SYMROOT="$sym" > "$testout" 2> "$testerr"
+result=$?
+if [[ $result != 0 ]]; then
+    cat "$testerr"
+    echo
+    echo "** BUILD FAILURES **"
+	exit $result
+fi
+
 cd "$build"
 "../$ocunit2junit" < "$testout"
