@@ -4,7 +4,7 @@
 
 base=`dirname $0`
 echo "$base"
-pushd "$base/.." > /dev/null
+pushd "$base/../.." > /dev/null
 build="$PWD/test-build"
 ocunit2junit="$base/OCUnit2JUnit/bin/ocunit2junit"
 popd > /dev/null
