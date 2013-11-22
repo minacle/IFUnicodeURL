@@ -481,7 +481,7 @@ int Xcode_normalizeString( DWORD *  pdwInputString, int iInputSize,
 {
   int return_code;
   int i;
-  DWORD dwzTemp[256];
+  DWORD dwzTemp[256] = { 0 };
   int iTempSize = 256;
 
   if ( iInputSize < 1 ) return XCODE_NAMEPREP_BAD_ARGUMENT_ERROR;
