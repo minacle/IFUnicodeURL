@@ -50,13 +50,13 @@ static NSString *ConvertUnicodeDomainString(NSString *hostname, BOOL toAscii)
 		UCHAR8 outputString[outputLength];
 		
 		if (XCODE_SUCCESS == Xcode_DomainToASCII(inputString, inputLength, outputString, &outputLength)) {
-			hostname = [[[NSString alloc] initWithBytes:outputString length:outputLength encoding:NSASCIIStringEncoding] autorelease];
+			hostname = [[NSString alloc] initWithBytes:outputString length:outputLength encoding:NSASCIIStringEncoding];
 		}
 	} else {
 		int outputLength = MAX_DOMAIN_SIZE_16;
 		UTF16CHAR outputString[outputLength];
 		if (XCODE_SUCCESS == Xcode_DomainToUnicode16(inputString, inputLength, outputString, &outputLength)) {
-			hostname = [[[NSString alloc] initWithCharacters:outputString length:outputLength] autorelease];
+			hostname = [[NSString alloc] initWithCharacters:outputString length:outputLength];
 		}
 	}
 	
@@ -65,7 +65,7 @@ static NSString *ConvertUnicodeDomainString(NSString *hostname, BOOL toAscii)
 
 static NSString *ConvertUnicodeURLString(NSString *str)
 {
-	NSMutableArray *urlParts = [[NSMutableArray new] autorelease];
+	NSMutableArray *urlParts = [NSMutableArray new];
 	NSString *hostname = nil;
 	NSArray *parts = nil;
 	
@@ -95,16 +95,13 @@ static NSString *ConvertUnicodeURLString(NSString *str)
 	// This will try to clean up the stuff after the hostname in the URL by making sure it's all encoded properly.
 	// NSURL doesn't normally do anything like this, but I found it useful for my purposes to put it in here.
 	NSString *afterHostname = [[urlParts objectAtIndex:4] stringByAppendingString:[urlParts objectAtIndex:2]];
-	CFStringRef cleanedAfterHostname = CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)afterHostname, CFSTR(""), kCFStringEncodingUTF8);
-	NSString *processedAfterHostname = (NSString *)cleanedAfterHostname ?: afterHostname;
-	CFStringRef finalAfterHostname = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)processedAfterHostname, CFSTR("#[]"), NULL, kCFStringEncodingUTF8);
+    NSString* cleanedAfterHostname = [afterHostname stringByRemovingPercentEncoding];
+    NSString *processedAfterHostname = cleanedAfterHostname ?: afterHostname;
+    NSString* finalAfterHostname = [processedAfterHostname stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
 	
 	// Now recreate the URL safely with the new hostname (if it was successful) instead...
-	NSArray *reconstructedArray = [NSArray arrayWithObjects:[urlParts objectAtIndex:0], [urlParts objectAtIndex:1], [urlParts objectAtIndex:3], hostname, (NSString *)finalAfterHostname, nil];
+	NSArray *reconstructedArray = [NSArray arrayWithObjects:[urlParts objectAtIndex:0], [urlParts objectAtIndex:1], [urlParts objectAtIndex:3], hostname, finalAfterHostname, nil];
 	NSString *reconstructedURLString = [reconstructedArray componentsJoinedByString:@""];
-
-	if (cleanedAfterHostname) CFRelease(cleanedAfterHostname);
-	CFRelease(finalAfterHostname);
 
 	return reconstructedURLString;
 }
@@ -113,7 +110,7 @@ static NSString *ConvertUnicodeURLString(NSString *str)
 + (NSURL *)URLWithUnicodeString:(NSString *)str
 {
     if (!str) return nil;   // mimic +URLWithString:'s present behaviour
-	return [[[self alloc] initWithUnicodeString:str] autorelease];
+	return [[self alloc] initWithUnicodeString:str];
 }
 
 - (id)initWithUnicodeString:(NSString *)str
@@ -157,12 +154,10 @@ static NSString *ConvertUnicodeURLString(NSString *str)
                           withBytes:[unicodeHostData bytes]
                              length:[unicodeHostData length]];
     }
-    [host release];
     
     // Bundle the result up as a string to finish
     NSString *result = [[NSString alloc] initWithBytes:[buffer bytes] length:[buffer length] encoding:NSUTF8StringEncoding];
-    [buffer release];
-    return [result autorelease];
+    return result;
 }
 
 - (NSString *)unicodeHost

@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 Jungle Candy Software. All rights reserved.
 //
 
+#import <XCTest/XCTest.h>
+
 #import "NSURL+IFUnicodeURL.h"
 
-#import <SenTestingKit/SenTestingKit.h>
-
-@interface TestIFUnicodeURL : SenTestCase
+@interface TestIFUnicodeURL : XCTestCase
 
 @end
 
@@ -20,13 +20,13 @@
 {
     NSURL *URL = [NSURL URLWithUnicodeString:urlString];
     NSLog(@"** %@", URL);
-    STAssertEqualObjects([URL absoluteString], expectedResult, nil);
+    XCTAssertEqualObjects([URL absoluteString], expectedResult);
 }
 
 - (void)testNormalisedString:(NSString *)urlString equalsUnicodeString:(NSString *)expectedResult
 {
     NSURL *URL = [NSURL URLWithUnicodeString:urlString];
-    STAssertEqualObjects([URL unicodeAbsoluteString], expectedResult, nil);
+    XCTAssertEqualObjects([URL unicodeAbsoluteString], expectedResult);
 }
 
 - (void)testUnicodeToNormalised
@@ -43,12 +43,15 @@
     [self testNormalisedString:@"http://xn--exmple-cub.com/" equalsUnicodeString:@"http://xn--exmple-cub.com/"];
     [self testNormalisedString:@"http://www.xn--exmple-cua.com/" equalsUnicodeString:@"http://www.exämple.com/"];
     [self testNormalisedString:@"http://www.xn--exmple-cub.com/" equalsUnicodeString:@"http://www.xn--exmple-cub.com/"];
+
+    NSURL* url = [NSURL URLWithUnicodeString:@"https://myusername:mypassword@www.jb💩.tk:92/%F0%9F%92%A9💩%F0%9F%92%A9/abc/💩/abc?💩=%F0%9F%92%A9&b=c"];
+    XCTAssertEqualObjects(@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9%F0%9F%92%A9%F0%9F%92%A9/abc/%F0%9F%92%A9/abc?%F0%9F%92%A9=%F0%9F%92%A9&b=c", [url absoluteString]);
 }
 
 - (void)testNil
 {
-    STAssertNil([NSURL URLWithUnicodeString:nil], nil);
-    STAssertThrows([[[NSURL alloc] initWithUnicodeString:nil] autorelease], nil);
+    XCTAssertNil([NSURL URLWithUnicodeString:nil]);
+    XCTAssertThrows([[NSURL alloc] initWithUnicodeString:nil]);
 }
 
 
