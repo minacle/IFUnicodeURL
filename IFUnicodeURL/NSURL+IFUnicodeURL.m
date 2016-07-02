@@ -2,12 +2,6 @@
 #import "NSURL+IFUnicodeURL.h"
 #import "IDNSDK/xcode.h"
 
-@interface NSString (IFUnicodeURLHelpers)
-- (NSArray *)IFUnicodeURL_splitAfterString:(NSString *)string;
-- (NSArray *)IFUnicodeURL_splitBeforeCharactersInSet:(NSCharacterSet *)chars;
-@end
-
-
 @implementation NSString (IFUnicodeURLHelpers)
 - (NSArray *)IFUnicodeURL_splitAfterString:(NSString *)string
 {
@@ -27,16 +21,22 @@
 	return [NSArray arrayWithObjects:firstPart, secondPart, nil];
 }
 
-- (NSArray *)IFUnicodeURL_splitBeforeCharactersInSet:(NSCharacterSet *)chars
+- (NSArray *)IFUnicodeURL_splitBeforeString:(NSString *)string
 {
-	NSUInteger index=0;
-	for (; index<[self length]; index++) {
-		if ([chars characterIsMember:[self characterAtIndex:index]]) {
-			break;
-		}
-	}
-	
-	return [NSArray arrayWithObjects:[self substringToIndex:index], [self substringFromIndex:index], nil];
+    NSString *firstPart;
+    NSString *secondPart;
+    NSRange range = [self rangeOfString:string];
+    
+    if (range.location != NSNotFound) {
+        NSUInteger index = range.location;
+        firstPart = [self substringToIndex:index];
+        secondPart = [self substringFromIndex:index];
+    } else {
+        firstPart = self;
+        secondPart = @"";
+    }
+    
+    return [NSArray arrayWithObjects:firstPart, secondPart, nil];
 }
 @end
 
@@ -82,15 +82,15 @@ static NSString *ConvertUnicodeURLString(NSString *str)
 	NSString *hostname = nil;
 	NSArray *parts = nil;
     
-    NSString* schemeAndColonComponent = nil;
-    NSString* slashSlashComponent = nil;
-    NSString* pathComponent = nil;
-    NSString* queryComponent = nil;
-    NSString* fragmentComponent = nil;
-    NSString* usernameComponent = nil;
-    NSString* passwordComponent = nil;
-    NSString* atAfterUsernamePasswordComponent = nil;
-    NSString* portNumberComponent = nil;
+    NSString* schemeAndColonComponent = @"";
+    NSString* slashSlashComponent = @"";
+    NSString* pathComponent = @"";
+    NSString* queryComponent = @"";
+    NSString* fragmentComponent = @"";
+    NSString* usernameComponent = @"";
+    NSString* passwordComponent = @"";
+    NSString* atAfterUsernamePasswordComponent = @"";
+    NSString* portNumberComponent = @"";
     
 	
 	parts = [str IFUnicodeURL_splitAfterString:@":"];
@@ -101,37 +101,32 @@ static NSString *ConvertUnicodeURLString(NSString *str)
 	hostname = [parts objectAtIndex:1];
 	slashSlashComponent = [parts objectAtIndex:0];
 	
-	parts = [hostname IFUnicodeURL_splitBeforeCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"#"]];
-	hostname = [parts objectAtIndex:0];
-    fragmentComponent = reencode(parts[1], [NSCharacterSet URLFragmentAllowedCharacterSet]);
-    
-    parts = [hostname IFUnicodeURL_splitBeforeCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"?"]];
-    hostname = [parts objectAtIndex:0];
-    queryComponent = reencode(parts[1], [NSCharacterSet URLQueryAllowedCharacterSet]);
-    
-    parts = [hostname IFUnicodeURL_splitBeforeCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
-    hostname = [parts objectAtIndex:0];
-    pathComponent = reencode(parts[1], [NSCharacterSet URLPathAllowedCharacterSet]);
-    
-//    [[[parts objectAtIndex:1] stringByRemovingPercentEncoding] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
-    
     parts = [hostname IFUnicodeURL_splitAfterString:@"@"];
-	hostname = [parts objectAtIndex:1];
-	NSString* usernameAndPasswordComponent = [parts objectAtIndex:0];
+    hostname = [parts objectAtIndex:1];
+    NSString* usernameAndPasswordComponent = [parts objectAtIndex:0];
     if ([usernameAndPasswordComponent length] > 0) {
         usernameAndPasswordComponent = [usernameAndPasswordComponent substringToIndex:[usernameAndPasswordComponent length]-1];
         atAfterUsernamePasswordComponent = @"@";
-        parts = [usernameAndPasswordComponent IFUnicodeURL_splitBeforeCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@":"]];
+        parts = [usernameAndPasswordComponent IFUnicodeURL_splitBeforeString:@":"];
         // I don't call reencode(...) on the username because it does not include its preceding delimiter
         usernameComponent = [[parts[0] stringByRemovingPercentEncoding] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLUserAllowedCharacterSet]];
         passwordComponent = reencode(parts[1], [NSCharacterSet URLPasswordAllowedCharacterSet]);
-    } else {
-        usernameComponent = @"";
-        passwordComponent = @"";
-        atAfterUsernamePasswordComponent = @"";
     }
+
+    parts = [hostname IFUnicodeURL_splitBeforeString:@"#"];
+	hostname = [parts objectAtIndex:0];
+    fragmentComponent = reencode(parts[1], [NSCharacterSet URLFragmentAllowedCharacterSet]);
+    
+    parts = [hostname IFUnicodeURL_splitBeforeString:@"?"];
+    hostname = [parts objectAtIndex:0];
+    queryComponent = reencode(parts[1], [NSCharacterSet URLQueryAllowedCharacterSet]);
+    
+    parts = [hostname IFUnicodeURL_splitBeforeString:@"/"];
+    hostname = [parts objectAtIndex:0];
+    pathComponent = reencode(parts[1], [NSCharacterSet URLPathAllowedCharacterSet]);
+    
 	
-	parts = [hostname IFUnicodeURL_splitBeforeCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@":"]];
+	parts = [hostname IFUnicodeURL_splitBeforeString:@":"];
 	hostname = [parts objectAtIndex:0];
 	portNumberComponent = [parts objectAtIndex:1];
 	
