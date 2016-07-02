@@ -34,6 +34,10 @@
     [self testUnicodeString:@"http://exämple.com" equalsNormalisedString:@"http://xn--exmple-cua.com"];
     [self testUnicodeString:@"exämple.com" equalsNormalisedString:@"xn--exmple-cua.com"];
     [self testUnicodeString:@"exämple" equalsNormalisedString:@"xn--exmple-cua"];
+    [self testUnicodeString:@"http://exämple.com/?#" equalsNormalisedString:@"http://xn--exmple-cua.com/?#"];
+    [self testUnicodeString:@"http://exämple.com/?" equalsNormalisedString:@"http://xn--exmple-cua.com/?"];
+    [self testUnicodeString:@"http://exämple.com?" equalsNormalisedString:@"http://xn--exmple-cua.com?"];
+    [self testUnicodeString:@"http://exämple.com#" equalsNormalisedString:@"http://xn--exmple-cua.com#"];
 }
 
 - (void)testNormalisedToUnicode
