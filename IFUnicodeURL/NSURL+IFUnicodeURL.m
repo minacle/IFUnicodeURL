@@ -27,6 +27,24 @@
 	return [NSArray arrayWithObjects:firstPart, secondPart, nil];
 }
 
+- (NSArray *)IFUnicodeURL_splitBeforeString:(NSString *)string
+{
+    NSString *firstPart;
+    NSString *secondPart;
+    NSRange range = [self rangeOfString:string];
+    
+    if (range.location != NSNotFound) {
+        NSUInteger index = range.location+range.length;
+        firstPart = [self substringToIndex:index];
+        secondPart = [self substringFromIndex:index];
+    } else {
+        firstPart = @"";
+        secondPart = self;
+    }
+    
+    return [NSArray arrayWithObjects:firstPart, secondPart, nil];
+}
+
 - (NSArray *)IFUnicodeURL_splitBeforeCharactersInSet:(NSCharacterSet *)chars
 {
 	NSUInteger index=0;
@@ -63,57 +81,83 @@ static NSString *ConvertUnicodeDomainString(NSString *hostname, BOOL toAscii)
 	return hostname;
 }
 
+/*
+    Percent-encodes string using the specified allowedCharacterSet. Assumes that the first character is a
+    one-character long delimiter and does not encode that.
+ */
+static NSString* reencode(NSString* string, NSCharacterSet* allowedCharacterSet) {
+    if ([string length] < 2) {
+        return string;
+    }
+    NSString* toEncode = [[string substringFromIndex:1] stringByRemovingPercentEncoding];
+    NSString* encoded = [toEncode stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacterSet];
+    return [NSString stringWithFormat:@"%@%@", [string substringToIndex:1], encoded];
+}
+
 static NSString *ConvertUnicodeURLString(NSString *str)
 {
-	NSMutableArray *urlParts = [NSMutableArray new];
 	NSString *hostname = nil;
 	NSArray *parts = nil;
+    
+    NSString* schemeAndColonComponent = nil;
+    NSString* slashSlashComponent = nil;
+    NSString* pathComponent = nil;
+    NSString* queryComponent = nil;
+    NSString* fragmentComponent = nil;
+    NSString* usernameAndPasswordComponent = nil;
+    NSString* portNumberComponent = nil;
+    
 	
 	parts = [str IFUnicodeURL_splitAfterString:@":"];
 	hostname = [parts objectAtIndex:1];
-	[urlParts addObject:[parts objectAtIndex:0]];
+	schemeAndColonComponent = [parts objectAtIndex:0];
 	
 	parts = [hostname IFUnicodeURL_splitAfterString:@"//"];
 	hostname = [parts objectAtIndex:1];
-	[urlParts addObject:[parts objectAtIndex:0]];
+	slashSlashComponent = [parts objectAtIndex:0];
 	
-	parts = [hostname IFUnicodeURL_splitBeforeCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/?#"]];
+	parts = [hostname IFUnicodeURL_splitBeforeCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"#"]];
 	hostname = [parts objectAtIndex:0];
-	[urlParts addObject:[parts objectAtIndex:1]];
-	
+    fragmentComponent = reencode(parts[1], [NSCharacterSet URLFragmentAllowedCharacterSet]);
+    
+    parts = [hostname IFUnicodeURL_splitBeforeCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"?"]];
+    hostname = [parts objectAtIndex:0];
+    queryComponent = reencode(parts[1], [NSCharacterSet URLQueryAllowedCharacterSet]);
+    
+    parts = [hostname IFUnicodeURL_splitBeforeCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+    hostname = [parts objectAtIndex:0];
+    pathComponent = reencode(parts[1], [NSCharacterSet URLPathAllowedCharacterSet]);
+    
+    [[[parts objectAtIndex:1] stringByRemovingPercentEncoding] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    	
 	parts = [hostname IFUnicodeURL_splitAfterString:@"@"];
 	hostname = [parts objectAtIndex:1];
-	[urlParts addObject:[parts objectAtIndex:0]];
+	usernameAndPasswordComponent = [parts objectAtIndex:0];
 	
 	parts = [hostname IFUnicodeURL_splitBeforeCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@":"]];
 	hostname = [parts objectAtIndex:0];
-	[urlParts addObject:[parts objectAtIndex:1]];
+	portNumberComponent = [parts objectAtIndex:1];
 	
 	// Now that we have isolated just the hostname, do the magic decoding...
 	hostname = ConvertUnicodeDomainString(hostname, YES);
-	
-	// This will try to clean up the stuff after the hostname in the URL by making sure it's all encoded properly.
-	// NSURL doesn't normally do anything like this, but I found it useful for my purposes to put it in here.
-	NSString *afterHostname = [[urlParts objectAtIndex:4] stringByAppendingString:[urlParts objectAtIndex:2]];
-    NSString* cleanedAfterHostname = [afterHostname stringByRemovingPercentEncoding];
-    NSString *processedAfterHostname = cleanedAfterHostname ?: afterHostname;
-    NSString* finalAfterHostname = [processedAfterHostname stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-	
+		
 	// Now recreate the URL safely with the new hostname (if it was successful) instead...
-	NSArray *reconstructedArray = [NSArray arrayWithObjects:[urlParts objectAtIndex:0], [urlParts objectAtIndex:1], [urlParts objectAtIndex:3], hostname, finalAfterHostname, nil];
+	NSArray *reconstructedArray = @[schemeAndColonComponent, slashSlashComponent, usernameAndPasswordComponent, hostname, portNumberComponent, pathComponent, queryComponent, fragmentComponent];
 	NSString *reconstructedURLString = [reconstructedArray componentsJoinedByString:@""];
 
 	return reconstructedURLString;
 }
 
+
+
 @implementation NSURL (IFUnicodeURL)
-+ (NSURL *)URLWithUnicodeString:(NSString *)str
++ (NSURL *)URLWithUnicodeString:(nonnull NSString *)str
 {
     if (!str) return nil;   // mimic +URLWithString:'s present behaviour
 	return [[self alloc] initWithUnicodeString:str];
 }
 
-- (id)initWithUnicodeString:(NSString *)str
+- (id)initWithUnicodeString:(nonnull NSString *)str
 {
 	return [self initWithString:ConvertUnicodeURLString(str)];
 }
