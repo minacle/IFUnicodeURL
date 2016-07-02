@@ -38,6 +38,10 @@
     [self testUnicodeString:@"http://exämple.com/?" equalsNormalisedString:@"http://xn--exmple-cua.com/?"];
     [self testUnicodeString:@"http://exämple.com?" equalsNormalisedString:@"http://xn--exmple-cua.com?"];
     [self testUnicodeString:@"http://exämple.com#" equalsNormalisedString:@"http://xn--exmple-cua.com#"];
+    [self testUnicodeString:@"http://a:b@exämple.com#" equalsNormalisedString:@"http://a:b@xn--exmple-cua.com#"];
+    [self testUnicodeString:@"http://a@exämple.com#" equalsNormalisedString:@"http://a@xn--exmple-cua.com#"];
+    [self testUnicodeString:@"http://💩:💩@exämple.com#" equalsNormalisedString:@"http://%F0%9F%92%A9:%F0%9F%92%A9@xn--exmple-cua.com#"];
+    [self testUnicodeString:@"http://%61:%61@exämple.com#" equalsNormalisedString:@"http://a:a@xn--exmple-cua.com#"];
 }
 
 - (void)testNormalisedToUnicode
@@ -61,8 +65,9 @@
     
 }
 
-- (void)testNil
-{
+- (void)testNil {
+    NSLog(@"encoded: %@", [@"a" stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet controlCharacterSet]]);
+
 }
 
 
