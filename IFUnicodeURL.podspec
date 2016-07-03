@@ -12,7 +12,7 @@ Pod::Spec.new do |spec|
   spec.platform         = :ios, 9.0
   spec.source_files     = "**/*.{c,h,m}"
   spec.frameworks       = [ 'Foundation' ]
-  spec.exclude_files    = ["Tests", "UnitTests"]
+  spec.exclude_files    = ["Tests", "UnitTests", "IDNSDK-1.1.0"]
   spec.requires_arc     = true
   spec.public_header_files   = 'IFUnicodeURL/NSURL+IFUnicodeURL.h'
 end
