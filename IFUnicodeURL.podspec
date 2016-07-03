@@ -8,7 +8,7 @@ Pod::Spec.new do |spec|
   spec.homepage         = "https://github.com/jbrayton/ifunicodeurl"
   spec.license          = { :type => 'MIT', :file => 'IFUnicodeURL-LICENSE.txt' }
   spec.authors          = [ "Sean Heber", "Karelia", "John Brayton" ]
-  spec.source           = { :git => "https://github.com/AgileBits/onepassword-app-extension.git" }
+  spec.source           = { :git => "https://github.com/jbrayton/IFUnicodeURL.git" }
   spec.platform         = :ios, 9.0
   spec.source_files     = "*.{h,m}"
   spec.frameworks       = [ 'Foundation' ]
