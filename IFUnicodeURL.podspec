@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
   spec.authors          = [ "Sean Heber", "Karelia", "John Brayton" ]
   spec.source           = { :git => "https://github.com/jbrayton/IFUnicodeURL.git" }
   spec.platform         = :ios, 9.0
-  spec.source_files     = "*.{h,m,c}"
+  spec.source_files     = "**/*.{c,h,m}"
   spec.frameworks       = [ 'Foundation' ]
   spec.exclude_files    = ["Tests", "UnitTests"]
   spec.requires_arc     = true
