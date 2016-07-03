@@ -14,5 +14,5 @@ Pod::Spec.new do |spec|
   spec.frameworks       = [ 'Foundation' ]
   spec.exclude_files    = ["Tests", "UnitTests"]
   spec.requires_arc     = true
-  spec.public_header_files   = 'IFUnicodeURL/*.h'
+  spec.public_header_files   = 'IFUnicodeURL/NSURL+IFUnicodeURL.h'
 end
