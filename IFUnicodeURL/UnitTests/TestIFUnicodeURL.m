@@ -23,6 +23,12 @@
     XCTAssertEqualObjects([URL absoluteString], expectedResult);
 }
 
+- (void) testURL:(NSURL*) URL withRelativeUnicodeUrlString:(NSString*) relativeUnicodeUrlString hasNormalisedString:(NSString*) expectedResult {
+    NSURL* resultURL = [NSURL URLWithUnicodeString:relativeUnicodeUrlString relativeToURL:URL];
+    NSString* resultURLString = [resultURL absoluteString];
+    XCTAssertEqualObjects(resultURLString, expectedResult);
+}
+
 - (void)testNormalisedString:(NSString *)urlString equalsUnicodeString:(NSString *)expectedResult
 {
     NSURL *URL = [NSURL URLWithUnicodeString:urlString];
@@ -62,7 +68,32 @@
     XCTAssertEqualObjects(url.path, @"/💩=💩 / ? #");
     XCTAssertEqualObjects(url.query, @"%F0%9F%92%A9=%F0%9F%92%A9+/+?+%23");
     XCTAssertEqualObjects(@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9=%F0%9F%92%A9%20/%20%3F%20%23?%F0%9F%92%A9=%F0%9F%92%A9+/+?+%23#%F0%9F%92%A9=%F0%9F%92%A9+/+?+%23", [url absoluteString]);
+}
+
+- (void) testRelativeURLs {
+    NSURL* url = [NSURL URLWithUnicodeString:@"https://myusername:mypassword@www.jb💩.tk:92/💩/💩/💩/💩/=💩%20%2F%20%3F%20%23?💩=💩+%2F+%3F+%23#💩=💩+%2F+%3F+%23"];
+    XCTAssertNotNil(url);
+    XCTAssertEqualObjects(url.scheme, @"https");
+    XCTAssertEqualObjects(url.user, @"myusername");
+    XCTAssertEqualObjects(url.password, @"mypassword");
+    XCTAssertEqualObjects(url.host, @"www.xn--jb-9t72a.tk");
+    XCTAssertEqual(url.port.integerValue, 92);
+    XCTAssertEqualObjects(url.path, @"/💩/💩/💩/💩/=💩 / ? #");
+    XCTAssertEqualObjects(url.query, @"%F0%9F%92%A9=%F0%9F%92%A9+/+?+%23");
+    XCTAssertEqualObjects(url.fragment, @"%F0%9F%92%A9=%F0%9F%92%A9+/+?+%23");
     
+    XCTAssertEqualObjects([url absoluteString], @"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/=%F0%9F%92%A9%20/%20%3F%20%23?%F0%9F%92%A9=%F0%9F%92%A9+/+?+%23#%F0%9F%92%A9=%F0%9F%92%A9+/+?+%23");
+    
+    // Tests that do not require unicode in place.
+    [self testURL:url withRelativeUnicodeUrlString:@"/foo/bar" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/foo/bar"];
+    [self testURL:url withRelativeUnicodeUrlString:@"//www.goldenhillsoftware.com/a/b" hasNormalisedString:@"https://www.goldenhillsoftware.com/a/b"];
+    [self testURL:url withRelativeUnicodeUrlString:@"http://www.goldenhillsoftware.com/a/b" hasNormalisedString:@"http://www.goldenhillsoftware.com/a/b"];
+    [self testURL:url withRelativeUnicodeUrlString:@"../../foo/bar" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/foo/bar"];
+    [self testURL:url withRelativeUnicodeUrlString:@"../../foo/bar?abc#def" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/foo/bar?abc#def"];
+    [self testURL:url withRelativeUnicodeUrlString:@"?abc#def" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/=%F0%9F%92%A9%20/%20%3F%20%23?abc#def"];
+    [self testURL:url withRelativeUnicodeUrlString:@"#xyz" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/=%F0%9F%92%A9%20/%20%3F%20%23?%F0%9F%92%A9=%F0%9F%92%A9+/+?+%23#xyz"];
+
+
 }
 
 - (void)testNil {

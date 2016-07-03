@@ -9,14 +9,18 @@
 // object instance made with the converted host string in place of the unicode one.
 // NOTE: These methods also sanitize the path/query by decoding and re-encoding any percent escaped stuff.
 // NSURL doesn't normally do anything like that, but I found it handy to have.
-+ (NSURL *)URLWithUnicodeString:(NSString *)str;
-- (id)initWithUnicodeString:(NSString *)str;
++ (nullable NSURL *)URLWithUnicodeString:(nonnull NSString *)str;
+- (nullable instancetype)initWithUnicodeString:(nonnull NSString *)str;
+
+- (nullable instancetype)initWithUnicodeString:(nonnull NSString *)URLString relativeToURL:(nonnull NSURL *)baseURL;
++ (nullable instancetype)URLWithUnicodeString:(nonnull NSString *)URLString relativeToURL:(nonnull NSURL *)baseURL;
+
 
 // This will return the same thing as NSURL's absoluteString method, but it converts the domain back into
 // the unicode characters that a user would expect to see in a UI, etc.
-- (NSString *)unicodeAbsoluteString;
+- (nullable NSString *)unicodeAbsoluteString;
 
 // Returns the same as NSURL's host method, but will convert it back into the unicode characters if possible.
-- (NSString *)unicodeHost;
+- (nullable NSString *)unicodeHost;
 
 @end

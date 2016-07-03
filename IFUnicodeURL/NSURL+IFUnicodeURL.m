@@ -143,16 +143,25 @@ static NSString *ConvertUnicodeURLString(NSString *str)
 
 
 @implementation NSURL (IFUnicodeURL)
-+ (NSURL *)URLWithUnicodeString:(nonnull NSString *)str
++ (nullable NSURL *)URLWithUnicodeString:(nonnull NSString *)str
 {
     if (!str) return nil;   // mimic +URLWithString:'s present behaviour
 	return [[self alloc] initWithUnicodeString:str];
 }
 
-- (id)initWithUnicodeString:(nonnull NSString *)str
+- (nullable instancetype)initWithUnicodeString:(nonnull NSString *)str
 {
 	return [self initWithString:ConvertUnicodeURLString(str)];
 }
+
+- (nullable instancetype)initWithUnicodeString:(nonnull NSString *)URLString relativeToURL:(nonnull NSURL *)baseURL {
+    return [self initWithString:URLString relativeToURL:baseURL];
+}
+
++ (nullable instancetype)URLWithUnicodeString:(nonnull NSString *)URLString relativeToURL:(nonnull NSURL *)baseURL {
+    return [[NSURL alloc] initWithUnicodeString:URLString relativeToURL:baseURL];
+}
+
 
 - (NSString *)unicodeAbsoluteString
 {
