@@ -19,13 +19,17 @@
 - (void)testUnicodeString:(NSString *)urlString equalsNormalisedString:(NSString *)expectedResult
 {
     NSURL *URL = [NSURL URLWithUnicodeString:urlString];
-    NSLog(@"** %@", URL);
+    XCTAssertEqualObjects([URL absoluteString], expectedResult);
+    URL = [[NSURL alloc] initWithUnicodeString:urlString];
     XCTAssertEqualObjects([URL absoluteString], expectedResult);
 }
 
 - (void) testURL:(NSURL*) URL withRelativeUnicodeUrlString:(NSString*) relativeUnicodeUrlString hasNormalisedString:(NSString*) expectedResult {
     NSURL* resultURL = [NSURL URLWithUnicodeString:relativeUnicodeUrlString relativeToURL:URL];
     NSString* resultURLString = [resultURL absoluteString];
+    XCTAssertEqualObjects(resultURLString, expectedResult);
+    resultURL = [[NSURL alloc] initWithUnicodeString:relativeUnicodeUrlString relativeToURL:URL];
+    resultURLString = [resultURL absoluteString];
     XCTAssertEqualObjects(resultURLString, expectedResult);
 }
 
@@ -38,8 +42,6 @@
 - (void)testUnicodeToNormalised
 {
     [self testUnicodeString:@"http://exämple.com" equalsNormalisedString:@"http://xn--exmple-cua.com"];
-    [self testUnicodeString:@"exämple.com" equalsNormalisedString:@"xn--exmple-cua.com"];
-    [self testUnicodeString:@"exämple" equalsNormalisedString:@"xn--exmple-cua"];
     [self testUnicodeString:@"http://exämple.com/?#" equalsNormalisedString:@"http://xn--exmple-cua.com/?#"];
     [self testUnicodeString:@"http://exämple.com/?" equalsNormalisedString:@"http://xn--exmple-cua.com/?"];
     [self testUnicodeString:@"http://exämple.com?" equalsNormalisedString:@"http://xn--exmple-cua.com?"];
@@ -93,6 +95,23 @@
     [self testURL:url withRelativeUnicodeUrlString:@"?abc#def" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/=%F0%9F%92%A9%20/%20%3F%20%23?abc#def"];
     [self testURL:url withRelativeUnicodeUrlString:@"#xyz" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/=%F0%9F%92%A9%20/%20%3F%20%23?%F0%9F%92%A9=%F0%9F%92%A9+/+?+%23#xyz"];
 
+    [self testURL:url withRelativeUnicodeUrlString:@"/👍/bar" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%91%8D/bar"];
+
+    [self testURL:url withRelativeUnicodeUrlString:@"//www.goldenhillsoftware.com/👍/b" hasNormalisedString:@"https://www.goldenhillsoftware.com/%F0%9F%91%8D/b"];
+    [self testURL:url withRelativeUnicodeUrlString:@"//www.goldenhillsoftware.com:42/👍/b" hasNormalisedString:@"https://www.goldenhillsoftware.com:42/%F0%9F%91%8D/b"];
+    [self testURL:url withRelativeUnicodeUrlString:@"//www.👍.com/👍/b" hasNormalisedString:@"https://www.xn--yp8h.com/%F0%9F%91%8D/b"];
+
+    [self testURL:url withRelativeUnicodeUrlString:@"http://www.👍.com/👍/b" hasNormalisedString:@"http://www.xn--yp8h.com/%F0%9F%91%8D/b"];
+    [self testURL:url withRelativeUnicodeUrlString:@"//👍👍:👍👍👍@www.goldenhillsoftware.com/👍/b" hasNormalisedString:@"https://%F0%9F%91%8D%F0%9F%91%8D:%F0%9F%91%8D%F0%9F%91%8D%F0%9F%91%8D@www.goldenhillsoftware.com/%F0%9F%91%8D/b"];
+    [self testURL:url withRelativeUnicodeUrlString:@"//👍👍:👍👍👍@www.goldenhillsoftware.com:85/👍/b" hasNormalisedString:@"https://%F0%9F%91%8D%F0%9F%91%8D:%F0%9F%91%8D%F0%9F%91%8D%F0%9F%91%8D@www.goldenhillsoftware.com:85/%F0%9F%91%8D/b"];
+    
+    [self testURL:url withRelativeUnicodeUrlString:@"../../👍/bar" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%91%8D/bar"];
+    [self testURL:url withRelativeUnicodeUrlString:@"../../foo/bar?👍#👍👍" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/foo/bar?%F0%9F%91%8D#%F0%9F%91%8D%F0%9F%91%8D"];
+    [self testURL:url withRelativeUnicodeUrlString:@"?👍#👍👍" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/=%F0%9F%92%A9%20/%20%3F%20%23?%F0%9F%91%8D#%F0%9F%91%8D%F0%9F%91%8D"];
+    [self testURL:url withRelativeUnicodeUrlString:@"#👍👍" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/=%F0%9F%92%A9%20/%20%3F%20%23?%F0%9F%92%A9=%F0%9F%92%A9+/+?+%23#%F0%9F%91%8D%F0%9F%91%8D"];
+
+    [self testURL:url withRelativeUnicodeUrlString:@"👍👍" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/=%F0%9F%92%A9%20/%F0%9F%91%8D%F0%9F%91%8D"];
+    [self testURL:url withRelativeUnicodeUrlString:@"👍👍/👍👍" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/=%F0%9F%92%A9%20/%F0%9F%91%8D%F0%9F%91%8D/%F0%9F%91%8D%F0%9F%91%8D"];
 
 }
 

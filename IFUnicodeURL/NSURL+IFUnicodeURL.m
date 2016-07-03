@@ -79,6 +79,8 @@ static NSString* reencode(NSString* string, NSCharacterSet* allowedCharacterSet)
 
 static NSString *ConvertUnicodeURLString(NSString *str)
 {
+    BOOL hasHost = NO;
+    
 	NSString *hostname = nil;
 	NSArray *parts = nil;
     
@@ -94,23 +96,33 @@ static NSString *ConvertUnicodeURLString(NSString *str)
     
 	
 	parts = [str IFUnicodeURL_splitAfterString:@":"];
-	hostname = [parts objectAtIndex:1];
-	schemeAndColonComponent = [parts objectAtIndex:0];
+    if ([parts[1] rangeOfString:@"//"].location == 0) {
+        hostname = [parts objectAtIndex:1];
+        schemeAndColonComponent = [parts objectAtIndex:0];
+    } else {
+        hostname = str;
+    }
 	
-	parts = [hostname IFUnicodeURL_splitAfterString:@"//"];
-	hostname = [parts objectAtIndex:1];
-	slashSlashComponent = [parts objectAtIndex:0];
-	
-    parts = [hostname IFUnicodeURL_splitAfterString:@"@"];
-    hostname = [parts objectAtIndex:1];
-    NSString* usernameAndPasswordComponent = [parts objectAtIndex:0];
-    if ([usernameAndPasswordComponent length] > 0) {
-        usernameAndPasswordComponent = [usernameAndPasswordComponent substringToIndex:[usernameAndPasswordComponent length]-1];
-        atAfterUsernamePasswordComponent = @"@";
-        parts = [usernameAndPasswordComponent IFUnicodeURL_splitBeforeString:@":"];
-        // I don't call reencode(...) on the username because it does not include its preceding delimiter
-        usernameComponent = [[parts[0] stringByRemovingPercentEncoding] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLUserAllowedCharacterSet]];
-        passwordComponent = reencode(parts[1], [NSCharacterSet URLPasswordAllowedCharacterSet]);
+    if ([hostname rangeOfString:@"//"].location == 0) {
+        hasHost = YES;
+    }
+    
+    if (hasHost) {
+        parts = [hostname IFUnicodeURL_splitAfterString:@"//"];
+        hostname = [parts objectAtIndex:1];
+        slashSlashComponent = [parts objectAtIndex:0];
+        
+        parts = [hostname IFUnicodeURL_splitAfterString:@"@"];
+        hostname = [parts objectAtIndex:1];
+        NSString* usernameAndPasswordComponent = [parts objectAtIndex:0];
+        if ([usernameAndPasswordComponent length] > 0) {
+            usernameAndPasswordComponent = [usernameAndPasswordComponent substringToIndex:[usernameAndPasswordComponent length]-1];
+            atAfterUsernamePasswordComponent = @"@";
+            parts = [usernameAndPasswordComponent IFUnicodeURL_splitBeforeString:@":"];
+            // I don't call reencode(...) on the username because it does not include its preceding delimiter
+            usernameComponent = [[parts[0] stringByRemovingPercentEncoding] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLUserAllowedCharacterSet]];
+            passwordComponent = reencode(parts[1], [NSCharacterSet URLPasswordAllowedCharacterSet]);
+        }
     }
 
     parts = [hostname IFUnicodeURL_splitBeforeString:@"#"];
@@ -121,14 +133,18 @@ static NSString *ConvertUnicodeURLString(NSString *str)
     hostname = [parts objectAtIndex:0];
     queryComponent = reencode(parts[1], [NSCharacterSet URLQueryAllowedCharacterSet]);
     
-    parts = [hostname IFUnicodeURL_splitBeforeString:@"/"];
-    hostname = [parts objectAtIndex:0];
-    pathComponent = reencode(parts[1], [NSCharacterSet URLPathAllowedCharacterSet]);
-    
-	
-	parts = [hostname IFUnicodeURL_splitBeforeString:@":"];
-	hostname = [parts objectAtIndex:0];
-	portNumberComponent = [parts objectAtIndex:1];
+    if (hasHost) {
+        parts = [hostname IFUnicodeURL_splitBeforeString:@"/"];
+        hostname = [parts objectAtIndex:0];
+        pathComponent = reencode(parts[1], [NSCharacterSet URLPathAllowedCharacterSet]);
+        
+        parts = [hostname IFUnicodeURL_splitBeforeString:@":"];
+        hostname = [parts objectAtIndex:0];
+        portNumberComponent = [parts objectAtIndex:1];
+    } else {
+        pathComponent = [[hostname stringByRemovingPercentEncoding] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+        hostname = @"";
+    }
 	
 	// Now that we have isolated just the hostname, do the magic decoding...
 	hostname = ConvertUnicodeDomainString(hostname, YES);
@@ -155,11 +171,11 @@ static NSString *ConvertUnicodeURLString(NSString *str)
 }
 
 - (nullable instancetype)initWithUnicodeString:(nonnull NSString *)URLString relativeToURL:(nonnull NSURL *)baseURL {
-    return [self initWithString:URLString relativeToURL:baseURL];
+    return [self initWithString:ConvertUnicodeURLString(URLString) relativeToURL:baseURL];
 }
 
 + (nullable instancetype)URLWithUnicodeString:(nonnull NSString *)URLString relativeToURL:(nonnull NSURL *)baseURL {
-    return [[NSURL alloc] initWithUnicodeString:URLString relativeToURL:baseURL];
+    return [[NSURL alloc] initWithUnicodeString:ConvertUnicodeURLString(URLString) relativeToURL:baseURL];
 }
 
 
