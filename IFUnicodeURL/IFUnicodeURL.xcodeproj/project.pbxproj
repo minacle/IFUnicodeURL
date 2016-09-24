@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		210315691D960387009C7CCB /* IFUnicodeURL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210315601D960386009C7CCB /* IFUnicodeURL.framework */; };
+		210315701D960387009C7CCB /* IFUnicodeURLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2103156F1D960387009C7CCB /* IFUnicodeURLTests.m */; };
+		210315721D960387009C7CCB /* IFUnicodeURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 210315621D960387009C7CCB /* IFUnicodeURL.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		210315751D960387009C7CCB /* IFUnicodeURL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210315601D960386009C7CCB /* IFUnicodeURL.framework */; };
+		210315761D960387009C7CCB /* IFUnicodeURL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 210315601D960386009C7CCB /* IFUnicodeURL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2103157E1D9603AF009C7CCB /* NSURL+IFUnicodeURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 22407D2D166F6D9500E1EAD4 /* NSURL+IFUnicodeURL.m */; };
+		2103157F1D9603AF009C7CCB /* nameprep.c in Sources */ = {isa = PBXBuildFile; fileRef = 22407D39166F721100E1EAD4 /* nameprep.c */; };
+		210315801D9603AF009C7CCB /* puny.c in Sources */ = {isa = PBXBuildFile; fileRef = 22407D3B166F721200E1EAD4 /* puny.c */; };
+		210315811D9603AF009C7CCB /* toxxx.c in Sources */ = {isa = PBXBuildFile; fileRef = 22407D3D166F721200E1EAD4 /* toxxx.c */; };
+		210315821D9603AF009C7CCB /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 22407D3F166F721200E1EAD4 /* util.c */; };
+		210315831D960427009C7CCB /* NSURL+IFUnicodeURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 22407D2C166F6D9500E1EAD4 /* NSURL+IFUnicodeURL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		21960A7F1D28307B00A8EC41 /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 21960A7E1D28307B00A8EC41 /* Tests.m */; };
 		21960A871D2830A700A8EC41 /* TestIFUnicodeURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 22407D31166F6DD400E1EAD4 /* TestIFUnicodeURL.m */; };
 		21960A901D28347500A8EC41 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 21960A8F1D28347500A8EC41 /* main.m */; };
@@ -24,6 +35,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2103156A1D960387009C7CCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE83866C13897613005E0FFD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2103155F1D960386009C7CCB;
+			remoteInfo = IFUnicodeURL;
+		};
+		2103156C1D960387009C7CCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE83866C13897613005E0FFD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 21960A8B1D28347500A8EC41;
+			remoteInfo = ContainerApp;
+		};
+		210315731D960387009C7CCB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE83866C13897613005E0FFD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2103155F1D960386009C7CCB;
+			remoteInfo = IFUnicodeURL;
+		};
 		21960AA61D28347D00A8EC41 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EE83866C13897613005E0FFD /* Project object */;
@@ -33,7 +65,27 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2103157C1D960387009C7CCB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				210315761D960387009C7CCB /* IFUnicodeURL.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		210315601D960386009C7CCB /* IFUnicodeURL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IFUnicodeURL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		210315621D960387009C7CCB /* IFUnicodeURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFUnicodeURL.h; sourceTree = "<group>"; };
+		210315631D960387009C7CCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		210315681D960387009C7CCB /* IFUnicodeURLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IFUnicodeURLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2103156F1D960387009C7CCB /* IFUnicodeURLTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFUnicodeURLTests.m; sourceTree = "<group>"; };
+		210315711D960387009C7CCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21960A6C1D2829BE00A8EC41 /* PlaceholderTarget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaceholderTarget.h; sourceTree = "<group>"; };
 		21960A6E1D2829BE00A8EC41 /* PlaceholderTarget.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTarget.m; sourceTree = "<group>"; };
 		21960A7C1D28307B00A8EC41 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +123,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2103155C1D960386009C7CCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		210315651D960387009C7CCB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				210315691D960387009C7CCB /* IFUnicodeURL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		21960A791D28307B00A8EC41 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -82,12 +149,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				210315751D960387009C7CCB /* IFUnicodeURL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		210315611D960387009C7CCB /* IFUnicodeURL */ = {
+			isa = PBXGroup;
+			children = (
+				210315621D960387009C7CCB /* IFUnicodeURL.h */,
+				210315631D960387009C7CCB /* Info.plist */,
+			);
+			path = IFUnicodeURL;
+			sourceTree = "<group>";
+		};
+		2103156E1D960387009C7CCB /* IFUnicodeURLTests */ = {
+			isa = PBXGroup;
+			children = (
+				2103156F1D960387009C7CCB /* IFUnicodeURLTests.m */,
+				210315711D960387009C7CCB /* Info.plist */,
+			);
+			path = IFUnicodeURLTests;
+			sourceTree = "<group>";
+		};
 		21960A6B1D2829BE00A8EC41 /* PlaceholderTarget */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +246,8 @@
 				21960A6B1D2829BE00A8EC41 /* PlaceholderTarget */,
 				21960A7D1D28307B00A8EC41 /* Tests */,
 				21960A8D1D28347500A8EC41 /* ContainerApp */,
+				210315611D960387009C7CCB /* IFUnicodeURL */,
+				2103156E1D960387009C7CCB /* IFUnicodeURLTests */,
 				EE83867A13897644005E0FFD /* Frameworks */,
 				EE83867913897644005E0FFD /* Products */,
 			);
@@ -170,6 +258,8 @@
 			children = (
 				21960A7C1D28307B00A8EC41 /* Tests.xctest */,
 				21960A8C1D28347500A8EC41 /* ContainerApp.app */,
+				210315601D960386009C7CCB /* IFUnicodeURL.framework */,
+				210315681D960387009C7CCB /* IFUnicodeURLTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -194,7 +284,56 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		2103155D1D960386009C7CCB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				210315721D960387009C7CCB /* IFUnicodeURL.h in Headers */,
+				210315831D960427009C7CCB /* NSURL+IFUnicodeURL.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		2103155F1D960386009C7CCB /* IFUnicodeURL */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2103157B1D960387009C7CCB /* Build configuration list for PBXNativeTarget "IFUnicodeURL" */;
+			buildPhases = (
+				2103155B1D960386009C7CCB /* Sources */,
+				2103155C1D960386009C7CCB /* Frameworks */,
+				2103155D1D960386009C7CCB /* Headers */,
+				2103155E1D960386009C7CCB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IFUnicodeURL;
+			productName = IFUnicodeURL;
+			productReference = 210315601D960386009C7CCB /* IFUnicodeURL.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		210315671D960387009C7CCB /* IFUnicodeURLTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2103157D1D960387009C7CCB /* Build configuration list for PBXNativeTarget "IFUnicodeURLTests" */;
+			buildPhases = (
+				210315641D960387009C7CCB /* Sources */,
+				210315651D960387009C7CCB /* Frameworks */,
+				210315661D960387009C7CCB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2103156B1D960387009C7CCB /* PBXTargetDependency */,
+				2103156D1D960387009C7CCB /* PBXTargetDependency */,
+			);
+			name = IFUnicodeURLTests;
+			productName = IFUnicodeURLTests;
+			productReference = 210315681D960387009C7CCB /* IFUnicodeURLTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		21960A7B1D28307B00A8EC41 /* Tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 21960A841D28307B00A8EC41 /* Build configuration list for PBXNativeTarget "Tests" */;
@@ -220,10 +359,12 @@
 				21960A881D28347500A8EC41 /* Sources */,
 				21960A891D28347500A8EC41 /* Frameworks */,
 				21960A8A1D28347500A8EC41 /* Resources */,
+				2103157C1D960387009C7CCB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				210315741D960387009C7CCB /* PBXTargetDependency */,
 			);
 			name = ContainerApp;
 			productName = ContainerApp;
@@ -239,6 +380,16 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Jungle Candy Software";
 				TargetAttributes = {
+					2103155F1D960386009C7CCB = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+					210315671D960387009C7CCB = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 372S63A2R8;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 21960A8B1D28347500A8EC41;
+					};
 					21960A7B1D28307B00A8EC41 = {
 						CreatedOnToolsVersion = 7.3.1;
 						TestTargetID = 21960A8B1D28347500A8EC41;
@@ -263,11 +414,27 @@
 			targets = (
 				21960A7B1D28307B00A8EC41 /* Tests */,
 				21960A8B1D28347500A8EC41 /* ContainerApp */,
+				2103155F1D960386009C7CCB /* IFUnicodeURL */,
+				210315671D960387009C7CCB /* IFUnicodeURLTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2103155E1D960386009C7CCB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		210315661D960387009C7CCB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		21960A7A1D28307B00A8EC41 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -288,6 +455,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2103155B1D960386009C7CCB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				210315821D9603AF009C7CCB /* util.c in Sources */,
+				210315801D9603AF009C7CCB /* puny.c in Sources */,
+				2103157E1D9603AF009C7CCB /* NSURL+IFUnicodeURL.m in Sources */,
+				2103157F1D9603AF009C7CCB /* nameprep.c in Sources */,
+				210315811D9603AF009C7CCB /* toxxx.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		210315641D960387009C7CCB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				210315701D960387009C7CCB /* IFUnicodeURLTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		21960A781D28307B00A8EC41 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -316,6 +503,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2103156B1D960387009C7CCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2103155F1D960386009C7CCB /* IFUnicodeURL */;
+			targetProxy = 2103156A1D960387009C7CCB /* PBXContainerItemProxy */;
+		};
+		2103156D1D960387009C7CCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 21960A8B1D28347500A8EC41 /* ContainerApp */;
+			targetProxy = 2103156C1D960387009C7CCB /* PBXContainerItemProxy */;
+		};
+		210315741D960387009C7CCB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2103155F1D960386009C7CCB /* IFUnicodeURL */;
+			targetProxy = 210315731D960387009C7CCB /* PBXContainerItemProxy */;
+		};
 		21960AA71D28347D00A8EC41 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 21960A8B1D28347500A8EC41 /* ContainerApp */;
@@ -351,6 +553,216 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		210315771D960387009C7CCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = IFUnicodeURL/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldenhillsoftware.IFUnicodeURL;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		210315781D960387009C7CCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = IFUnicodeURL/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldenhillsoftware.IFUnicodeURL;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		210315791D960387009C7CCB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 372S63A2R8;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = IFUnicodeURLTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldenhillsoftware.IFUnicodeURLTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ContainerApp.app/ContainerApp";
+			};
+			name = Debug;
+		};
+		2103157A1D960387009C7CCB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 372S63A2R8;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = IFUnicodeURLTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldenhillsoftware.IFUnicodeURLTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ContainerApp.app/ContainerApp";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		21960A851D28307B00A8EC41 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -557,6 +969,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2103157B1D960387009C7CCB /* Build configuration list for PBXNativeTarget "IFUnicodeURL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				210315771D960387009C7CCB /* Debug */,
+				210315781D960387009C7CCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2103157D1D960387009C7CCB /* Build configuration list for PBXNativeTarget "IFUnicodeURLTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				210315791D960387009C7CCB /* Debug */,
+				2103157A1D960387009C7CCB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		21960A841D28307B00A8EC41 /* Build configuration list for PBXNativeTarget "Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -564,6 +992,7 @@
 				21960A861D28307B00A8EC41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		21960AA31D28347600A8EC41 /* Build configuration list for PBXNativeTarget "ContainerApp" */ = {
 			isa = XCConfigurationList;
@@ -572,6 +1001,7 @@
 				21960AA51D28347600A8EC41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EE83866F13897613005E0FFD /* Build configuration list for PBXProject "IFUnicodeURL" */ = {
 			isa = XCConfigurationList;
