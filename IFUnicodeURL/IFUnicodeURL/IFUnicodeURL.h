@@ -16,4 +16,4 @@ FOUNDATION_EXPORT const unsigned char IFUnicodeURLVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <IFUnicodeURL/PublicHeader.h>
 
-#import <NSURL+IFUnicodeURL.h>
+#import "IFUnicodeURL.h"
