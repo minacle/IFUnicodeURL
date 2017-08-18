@@ -115,6 +115,13 @@
 
 }
 
+- (void) testJavaScriptUrl {
+    NSURL* url = [NSURL URLWithString:@"https://m.youtube.com/watch?v=-yhs8sIF-8s"];
+    [self testURL:url withRelativeUnicodeUrlString:@"javascript:\"\"" hasNormalisedString:@"javascript:%22%22"];
+    [self testURL:url withRelativeUnicodeUrlString:@"javascript:" hasNormalisedString:@"javascript:"];
+    [self testURL:url withRelativeUnicodeUrlString:@"javascript" hasNormalisedString:@"https://m.youtube.com/javascript"];
+}
+
 - (void)testNil {
     NSLog(@"encoded: %@", [@"a" stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet controlCharacterSet]]);
 

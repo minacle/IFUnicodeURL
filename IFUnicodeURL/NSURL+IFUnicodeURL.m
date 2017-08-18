@@ -96,6 +96,10 @@ static NSString *ConvertUnicodeURLString(NSString *str)
     
 	
 	parts = [str IFUnicodeURL_splitAfterString:@":"];
+    if ([parts[0] isEqualToString:@"javascript:"]) {
+        NSString* remainder = [[parts[1] stringByRemovingPercentEncoding] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet alphanumericCharacterSet]];
+        return [NSString stringWithFormat:@"javascript:%@", remainder];
+    }
     if ([parts[1] rangeOfString:@"//"].location == 0) {
         hostname = [parts objectAtIndex:1];
         schemeAndColonComponent = [parts objectAtIndex:0];
