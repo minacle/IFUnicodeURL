@@ -113,6 +113,8 @@
     [self testURL:url withRelativeUnicodeUrlString:@"👍👍" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/=%F0%9F%92%A9%20/%F0%9F%91%8D%F0%9F%91%8D"];
     [self testURL:url withRelativeUnicodeUrlString:@"👍👍/👍👍" hasNormalisedString:@"https://myusername:mypassword@www.xn--jb-9t72a.tk:92/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/%F0%9F%92%A9/=%F0%9F%92%A9%20/%F0%9F%91%8D%F0%9F%91%8D/%F0%9F%91%8D%F0%9F%91%8D"];
 
+    [self testURL:[NSURL URLWithString:@"https://news.blizzard.com/en-us"] withRelativeUnicodeUrlString:@"%SIMPLE_LABEL%" hasNormalisedString:@"https://news.blizzard.com/%25SIMPLE_LABEL%25"];
+
 }
 
 - (void) testJavaScriptUrl {

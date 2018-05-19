@@ -146,7 +146,11 @@ static NSString *ConvertUnicodeURLString(NSString *str)
         hostname = [parts objectAtIndex:0];
         portNumberComponent = [parts objectAtIndex:1];
     } else {
-        pathComponent = [[hostname stringByRemovingPercentEncoding] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+        NSString* hostnameWithoutPercentEncoding = [hostname stringByRemovingPercentEncoding];
+        if (!hostnameWithoutPercentEncoding) {
+            hostnameWithoutPercentEncoding = hostname;
+        }
+        pathComponent = [hostnameWithoutPercentEncoding stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
         hostname = @"";
     }
 	
