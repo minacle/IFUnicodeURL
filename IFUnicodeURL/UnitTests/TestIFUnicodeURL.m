@@ -50,6 +50,10 @@
     [self testUnicodeString:@"http://a@exämple.com#" equalsNormalisedString:@"http://a@xn--exmple-cua.com#"];
     [self testUnicodeString:@"http://💩:💩@exämple.com#" equalsNormalisedString:@"http://%F0%9F%92%A9:%F0%9F%92%A9@xn--exmple-cua.com#"];
     [self testUnicodeString:@"http://%61:%61@exämple.com#" equalsNormalisedString:@"http://a:a@xn--exmple-cua.com#"];
+    [self testUnicodeString:@"https://www.goldenhillsoftware.com/unread/" equalsNormalisedString:@"https://www.goldenhillsoftware.com/unread/"];
+
+    [self testUnicodeString:@"https://www.google-analytics.com/collect?v=1&tid=UA-49129446-41&t=event&&uid=%%=SHA256(=Lowercase(6a9183c2@newsletters.feedbin.com)=)=%%cid=618168961&cn=ALDO_CA-M-E30-Launch-Men&cm=emailopen&cs=sale&cd27=618168961&cd2=3815288&cc=ALDO_CA-M-NewSignup&ec=emailopen&ea=sale&el=ALDO_CA-M-E30-Launch-Men" equalsNormalisedString:@"https://www.google-analytics.com/collect?v=1&tid=UA-49129446-41&t=event&&uid=%25%25=SHA256(=Lowercase(6a9183c2@newsletters.feedbin.com)=)=%25%25cid=618168961&cn=ALDO_CA-M-E30-Launch-Men&cm=emailopen&cs=sale&cd27=618168961&cd2=3815288&cc=ALDO_CA-M-NewSignup&ec=emailopen&ea=sale&el=ALDO_CA-M-E30-Launch-Men"];
+    [self testUnicodeString:@"https://abc:def@www.google-analytics.com/collect?v=1&tid=UA-49129446-41&t=event&&uid=%%=SHA256(=Lowercase(6a9183c2@newsletters.feedbin.com)=)=%%cid=618168961&cn=ALDO_CA-M-E30-Launch-Men&cm=emailopen&cs=sale&cd27=618168961&cd2=3815288&cc=ALDO_CA-M-NewSignup&ec=emailopen&ea=sale&el=ALDO_CA-M-E30-Launch-Men" equalsNormalisedString:@"https://abc:def@www.google-analytics.com/collect?v=1&tid=UA-49129446-41&t=event&&uid=%25%25=SHA256(=Lowercase(6a9183c2@newsletters.feedbin.com)=)=%25%25cid=618168961&cn=ALDO_CA-M-E30-Launch-Men&cm=emailopen&cs=sale&cd27=618168961&cd2=3815288&cc=ALDO_CA-M-NewSignup&ec=emailopen&ea=sale&el=ALDO_CA-M-E30-Launch-Men"];
 }
 
 - (void)testNormalisedToUnicode

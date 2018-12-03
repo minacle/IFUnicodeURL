@@ -73,6 +73,9 @@ static NSString* reencode(NSString* string, NSCharacterSet* allowedCharacterSet)
         return string;
     }
     NSString* toEncode = [[string substringFromIndex:1] stringByRemovingPercentEncoding];
+    if (!toEncode) {
+        toEncode = [string substringFromIndex:1];
+    }
     NSString* encoded = [toEncode stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacterSet];
     return [NSString stringWithFormat:@"%@%@", [string substringToIndex:1], encoded];
 }
@@ -116,7 +119,15 @@ static NSString *ConvertUnicodeURLString(NSString *str)
         hostname = [parts objectAtIndex:1];
         slashSlashComponent = [parts objectAtIndex:0];
         
-        parts = [hostname IFUnicodeURL_splitAfterString:@"@"];
+        NSInteger atLoc = [hostname rangeOfString:@"@"].location;
+        NSInteger slashLoc = [hostname rangeOfString:@"/"].location;
+        
+        NSArray* parts = @[@"", hostname];
+        if ((atLoc != NSNotFound) && (slashLoc != NSNotFound) && (atLoc < slashLoc)) {
+            parts = [hostname IFUnicodeURL_splitAfterString:@"@"];
+        } else if (slashLoc == NSNotFound) {
+            parts = [hostname IFUnicodeURL_splitAfterString:@"@"];
+        }
         hostname = [parts objectAtIndex:1];
         NSString* usernameAndPasswordComponent = [parts objectAtIndex:0];
         if ([usernameAndPasswordComponent length] > 0) {
