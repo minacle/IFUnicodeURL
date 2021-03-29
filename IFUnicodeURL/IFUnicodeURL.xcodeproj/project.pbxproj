@@ -32,6 +32,8 @@
 		21960AAA1D28349400A8EC41 /* puny.c in Sources */ = {isa = PBXBuildFile; fileRef = 22407D3B166F721200E1EAD4 /* puny.c */; };
 		21960AAB1D28349900A8EC41 /* toxxx.c in Sources */ = {isa = PBXBuildFile; fileRef = 22407D3D166F721200E1EAD4 /* toxxx.c */; };
 		21960AAC1D28349C00A8EC41 /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = 22407D3F166F721200E1EAD4 /* util.c */; };
+		665B29BF2611D8C600817F0D /* URL+IFUnicodeURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CAC3582611BCC100BB2A73 /* URL+IFUnicodeURL.swift */; };
+		66CAC3592611BCC100BB2A73 /* URL+IFUnicodeURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66CAC3582611BCC100BB2A73 /* URL+IFUnicodeURL.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +119,7 @@
 		22407D3E166F721200E1EAD4 /* toxxx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = toxxx.h; path = IDNSDK/toxxx.h; sourceTree = "<group>"; };
 		22407D3F166F721200E1EAD4 /* util.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = util.c; path = IDNSDK/util.c; sourceTree = "<group>"; };
 		22407D40166F721200E1EAD4 /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = util.h; path = IDNSDK/util.h; sourceTree = "<group>"; };
+		66CAC3582611BCC100BB2A73 /* URL+IFUnicodeURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+IFUnicodeURL.swift"; sourceTree = "<group>"; };
 		EE83867B13897644005E0FFD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		EE83867E13897644005E0FFD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		EE83868013897644005E0FFD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -232,6 +235,7 @@
 		EE83866A13897613005E0FFD = {
 			isa = PBXGroup;
 			children = (
+				66CAC3582611BCC100BB2A73 /* URL+IFUnicodeURL.swift */,
 				22407D2C166F6D9500E1EAD4 /* NSURL+IFUnicodeURL.h */,
 				22407D2D166F6D9500E1EAD4 /* NSURL+IFUnicodeURL.m */,
 				22407D39166F721100E1EAD4 /* nameprep.c */,
@@ -382,6 +386,7 @@
 				TargetAttributes = {
 					2103155F1D960386009C7CCB = {
 						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 1240;
 						ProvisioningStyle = Automatic;
 					};
 					210315671D960387009C7CCB = {
@@ -461,6 +466,7 @@
 			files = (
 				210315821D9603AF009C7CCB /* util.c in Sources */,
 				210315801D9603AF009C7CCB /* puny.c in Sources */,
+				66CAC3592611BCC100BB2A73 /* URL+IFUnicodeURL.swift in Sources */,
 				2103157E1D9603AF009C7CCB /* NSURL+IFUnicodeURL.m in Sources */,
 				2103157F1D9603AF009C7CCB /* nameprep.c in Sources */,
 				210315811D9603AF009C7CCB /* toxxx.c in Sources */,
@@ -492,6 +498,7 @@
 				21960AA81D28348C00A8EC41 /* NSURL+IFUnicodeURL.m in Sources */,
 				21960A931D28347500A8EC41 /* AppDelegate.m in Sources */,
 				21960AAB1D28349900A8EC41 /* toxxx.c in Sources */,
+				665B29BF2611D8C600817F0D /* URL+IFUnicodeURL.swift in Sources */,
 				21960A961D28347600A8EC41 /* MasterViewController.m in Sources */,
 				21960AA91D28348F00A8EC41 /* nameprep.c in Sources */,
 				21960A901D28347500A8EC41 /* main.m in Sources */,
@@ -607,6 +614,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -662,6 +671,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -672,6 +682,7 @@
 		210315791D960387009C7CCB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -722,6 +733,7 @@
 		2103157A1D960387009C7CCB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -768,6 +780,7 @@
 		21960A851D28307B00A8EC41 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -817,6 +830,7 @@
 		21960A861D28307B00A8EC41 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -860,6 +874,7 @@
 		21960AA41D28347600A8EC41 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -908,6 +923,7 @@
 		21960AA51D28347600A8EC41 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
