@@ -5,6 +5,7 @@ import _IFUnicodeURL
 
 extension URL {
 
+    @frozen
     public struct IFUnicodeURL {
 
         internal let url: URL
