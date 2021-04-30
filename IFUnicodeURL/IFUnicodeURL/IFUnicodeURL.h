@@ -6,7 +6,7 @@
 //  Copyright © 2016 Jungle Candy Software. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for IFUnicodeURL.
 FOUNDATION_EXPORT double IFUnicodeURLVersionNumber;
